@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CS 171 FINAL PROJECT</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.min.js"></script>
+  <script src="js/libraries/nouislider/nouislider.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+
+<div class="row first-row">
+    <h1 class="text-center"> </h1>
+</div>
+
+
+<div class="row second-row">
+  <div class="col-1">
+  </div>
+  <div class="col-10">
+    <div id="welcome" class="slide">
+      <div class="row h-100"> <!-- 'h-100' to ensure row takes full height -->
+        <!-- First Column for Image -->
+        <div class="col-md-6 d-flex justify-content-center align-items-center">
+          <img src="data/images/soccerball.png" alt="Soccer Ball" class="welcome_image">
+        </div>
+
+        <!-- Second Column for Welcome Message -->
+        <div class="col-md-6">
+          <div class="welcome_message">
+            <h2>Hello! This is Ball-E.</h2>
+            <h3>Welcome to an analysis of the 2022/23 Premier League season!</h3>
+            <h3>Choose your favorite team to start and click on me whenever you want more information!</h3>
+            <!-- Add more content here if needed -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="red" class="slide">
+      <div class="container">
+        <div class="row">
+          <div id="vis0a" class="col visualization-container">
+            <!-- Interactive Chart: Team Overview -->
+            <!-- This section will display the logo of the team, together with a fun fact about it -->
+          </div>
+
+          <div id="vis0b" class="col visualization-container">
+            <!-- Data Table: Sorted Team Position -->
+            <!-- This section will present a sorted data table showing teams final position, highlighting the selected team -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div id="orange" class="slide">
+      <!-- Vis 5: Betting outcomes $ -->
+      <div class="container border container-big">
+        <!-- Add interactive Betting Function -->
+        <div class="row">
+          <div class="col-4">
+            <div class="row">
+              <div class="col-6 cont">
+                <div class="row justify-content-center">
+                  <h4>Home Team</h4>
+                </div>
+                <div class="row justify-content-center">
+                  <div id="logoH"></div>
+                </div>
+              </div>
+              <div class="col-6 cont">
+                <div class="row justify-content-center">
+                  <h4>Away Team</h4>
+                </div>
+                <div class="row justify-content-center">
+                  <div id="logoA"></div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="row justify-content-center" style="display: none;">
+              <div>
+                <table id="t">
+                  <tbody id="tab">
+                  <!-- Table content goes here -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <br>
+            <div class="row buttons">
+              <div class="col-4">
+                <button class="btn btn-outline-secondary" type="button"
+                        onclick="updateBetFor()" value="H" id="for">Bet Home!
+                </button>
+              </div>
+              <div class="col-4">
+                <button class="btn btn-outline-secondary text-center" type="button"
+                        onclick="updateBetDraw()" value="D" id="draw">Bet Draw!
+                </button>
+              </div>
+              <div class="col-4">
+                <button class="btn btn-outline-secondary text-center" type="button"
+                        onclick="updateBetAgainst()" value="A" id="against">Bet Away!
+                </button>
+              </div>
+            </div>
+            <br>
+            <div class="row justify-content-center">
+              <p>How much do you want to bet on this game?</p>
+              <input id="bet" type="number" min="0">
+            </div>
+          </div>
+          <div class="col-8">
+            <br>
+            <div class="row>">
+              <div id="vis5" class="visualization-container">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="green" class="slide">
+      <div class="col-4">
+        <div class="container">
+          <div class="row">
+            <div class="col-6 cont">
+              <div class="row justify-content-center">
+                <div id="logo1">Hover over a circle...</div>
+              </div>
+            </div>
+            <div class="col-6 cont">
+              <div class="row justify-content-center">
+                <div id="logo2">Hover over a circle...</div>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <div id="teamH">
+              Hover over a circle...
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <div id="score">
+              Hover over a circle...
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <div id="ref">
+              Hover over a circle...
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-8 line">
+        <div class="container border-left">
+          <div class="container">
+            <form class="form-inline">
+              <div class="form-group">
+                <select id="select-order-type" class="form-control input-sm">
+                  <option value="alphabetical">Alphabetical</option>
+                  <option value="points">Points</option>
+                  <option value="gDifference">Goal Difference</option>
+                  <option value="xG">Expected Goals</option>
+                  <option value="xGA">Expected Goals Against</option>
+                  <option value="xPTS">Expected Points</option>
+                </select>
+              </div>
+            </form>
+          </div>
+          <div id="vis3" >
+            <!-- Detailed performance -->
+            <!-- Visualization showing the results of each and every game -->
+          </div>
+        </div>
+      </div>
+      <!-- Vis 3: Matrix with every outcome -->
+    </div>
+    <div id="blue" class="slide">
+      <div class="container">
+        <div class="row">
+          <!-- Visualization Column (Left) -->
+          <div class="col-md-6">
+            <div id="circleContainer" class="visualization-container" style="background-color: white;">
+              <!-- Visualization content here -->
+            </div>
+          </div>
+
+          <!-- ExpResInfoBox Column (Right) -->
+          <div class="col-md-6">
+            <div id="expResInfoBox" style="display: block;">
+              <p>In the 22/23 Premier League Season, 380 games were betted on.</p>
+              <p>B365 bettors expected 238 Home wins, 136 Away wins, and 6 Draws.</p>
+
+              <h4>Your Guess:</h4>
+              <p>How many games turned out as expected?</p>
+              <input type="number" id="userGuess" placeholder="Enter your guess">
+              <button id="submitGuess">Submit</button>
+            </div>
+            <div id="feedbackContainer" style="display: none;">
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Filter Container (Positioned Absolutely) -->
+        <div id="filter-container" class="button-overlay">
+          <button id="btnExpRes">Expected Results</button>
+          <button id="btnFTR">What actually happened</button>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="yellow" class="slide">
+      <div id="vis2">
+        <!-- Bar Graph: Comparative Analysis -->
+        <!-- Visualization showcasing a comparative analysis of betting - actual performance, using a bar graph format -->
+        <div id="dropdownContainer">
+          <select id="sortSelector">
+            <option value="Bet Pts_B365">Bet Points Bet 365</option>
+            <option value="Bet Pts_BW">Bet Points BetWay</option>
+            <option value="Bet Pts_IW">Bet Points Interwetten</option>
+            <option value="Bet Pts_PS">Bet Points PinnacleSports</option>
+            <option value="Bet Pts_VC">Bet Points BetVictor</option>
+            <option value="Bet Pts_WH">Bet Points WilliamHill</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div id="purple" class="slide">
+      <div class="left-column">
+        Click on a column to see how the table would look if that betting metric was used in place of points!
+      </div>
+      <div id="vis4" class="right-column border-left">
+        <!-- Detailed performance -->
+        <!-- Visualization showing the results of each and every game -->
+      </div>
+    </div>
+  </div>
+  <div class="col-1">
+    <div id="slider"></div>
+    <div id="slide-indicator">
+      <span class="indicator-dot" data-slide="0"></span>
+      <span class="indicator-dot" data-slide="1"></span>
+      <span class="indicator-dot" data-slide="2"></span>
+      <span class="indicator-dot" data-slide="3"></span>
+      <span class="indicator-dot" data-slide="4"></span>
+      <span class="indicator-dot" data-slide="5"></span>
+      <span class="indicator-dot" data-slide="6"></span>
+    </div>
+  </div>
+</div>
+
+<!-- Dedicated Container for Info Icon -->
+<div id="infoIconContainer" class="info-icon-container">
+  <!-- Info Icon will be appended here by JavaScript -->
+  <div id="infoIcon">
+    <!-- Info Icon content goes here -->
+  </div>
+</div>
+
+<!-- Info Text Element -->
+<div class="info-text" style="display: none;">
+  <!-- Information content goes here -->
+</div>
+
+<div class="row last-row">
+  <select id="colorSelector" class="custom-select custom-color-selector mb-5">
+    <!-- Team options will be dynamically loaded by JavaScript based on the dataset -->
+  </select>
+</div>
+
+
+<script src="js/transitions.js"></script>
+<script src="js/script.js"></script>
+<script src="js/vis0.js"></script>
+<script src="js/vis1.js"></script>
+<script src="js/vis2.js"></script>
+<script src="js/vis3.js"></script>
+<script src="js/vis4.js"></script>
+<script src="js/vis5.js"></script>
+</body>
+</html>
